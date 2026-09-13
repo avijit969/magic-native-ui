@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "Magic Native UI",
+    "slug": "magic-native-ui-playground",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "magicnativeui",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": true },
+    "android": { "edgeToEdgeEnabled": true },
+    "web": { "bundler": "metro", "output": "static" },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}

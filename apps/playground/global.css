@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+@import 'uniwind';
+
+/* Design tokens — the single source of truth shared with the registry. */
+@import '../../registry/themes/default.css';
+
+/*
+ * Tailwind scans from this file's directory, so the registry (which lives at
+ * the workspace root) has to be registered explicitly.
+ */
+@source '../../registry';

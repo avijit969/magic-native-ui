@@ -1,0 +1,50 @@
+{
+  "name": "playground",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start -c",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "export:web": "expo export -p web --output-dir dist",
+    "export:preview": "expo export -p web --output-dir ../../../magic-native-ui-docs/public/playground --base-url /playground"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~57.0.15",
+    "@rn-primitives/avatar": "^1.5.2",
+    "@rn-primitives/checkbox": "^1.5.2",
+    "@rn-primitives/dialog": "^1.5.2",
+    "@rn-primitives/label": "^1.5.2",
+    "@rn-primitives/portal": "^1.5.3",
+    "@rn-primitives/separator": "^1.5.2",
+    "@rn-primitives/slot": "^1.5.2",
+    "@rn-primitives/switch": "^1.5.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "expo": "~57.0.22",
+    "expo-constants": "~57.0.18",
+    "expo-font": "~57.0.4",
+    "expo-linking": "~57.0.10",
+    "expo-router": "~57.0.21",
+    "expo-status-bar": "~57.0.1",
+    "lucide-react-native": "^1.45.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "~0.21.0",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.1.0",
+    "uniwind": "^1.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "babel-preset-expo": "~57.0.11",
+    "@types/react": "~19.2.0",
+    "typescript": "~5.9.2"
+  }
+}
