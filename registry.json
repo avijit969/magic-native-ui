@@ -1,0 +1,134 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "magic-native-ui",
+  "homepage": "https://native-ui.magicwebs.ai",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn",
+      "description": "Class name merge helper that resolves conflicting Tailwind utilities.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [{ "path": "registry/lib/utils.ts", "type": "registry:lib" }]
+    },
+    {
+      "name": "icons",
+      "type": "registry:lib",
+      "title": "Icons",
+      "description": "Adds className support to Lucide icons by mapping it onto the color prop.",
+      "dependencies": ["lucide-react-native", "react-native-svg"],
+      "files": [{ "path": "registry/lib/icons.tsx", "type": "registry:lib" }]
+    },
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "Default theme",
+      "description": "Design tokens for light and dark, declared as Uniwind @variant blocks.",
+      "files": [{ "path": "registry/themes/default.css", "type": "registry:file", "target": "theme.css" }]
+    },
+    {
+      "name": "text",
+      "type": "registry:ui",
+      "title": "Text",
+      "description": "Themed text that receives its colour from the nearest styled parent.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/text.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Pressable with the full set of shadcn variants and sizes.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Small status descriptor.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/badge.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Container with header, content and footer sections.",
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/card.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Single-line text field with focus and disabled states.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Accessible label bound to a form control.",
+      "dependencies": ["@rn-primitives/label"],
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/label.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Horizontal or vertical rule.",
+      "dependencies": ["@rn-primitives/separator"],
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/separator.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Animated placeholder for loading content.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/skeleton.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Image with an automatic fallback.",
+      "dependencies": ["@rn-primitives/avatar"],
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/avatar.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Toggle control styled through data-state selectors.",
+      "dependencies": ["@rn-primitives/switch"],
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/switch.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox with an icon indicator.",
+      "dependencies": ["@rn-primitives/checkbox"],
+      "registryDependencies": ["utils", "icons"],
+      "files": [{ "path": "registry/ui/checkbox.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Modal dialog rendered through a portal, with overlay and close button.",
+      "dependencies": ["@rn-primitives/dialog", "@rn-primitives/portal"],
+      "registryDependencies": ["utils", "icons", "text"],
+      "files": [{ "path": "registry/ui/dialog.tsx", "type": "registry:ui" }]
+    }
+  ]
+}
