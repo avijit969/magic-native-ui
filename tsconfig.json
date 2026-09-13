@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["bun"]
+  },
+  "include": ["scripts/**/*"],
+  "exclude": ["node_modules", "apps", "registry"]
+}

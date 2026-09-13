@@ -1,0 +1,24 @@
+{
+  "name": "magic-native-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "shadcn/ui-style component registry for React Native, Expo and web \u00e2\u20ac\u201d powered by Uniwind.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "playground": "bun --cwd apps/playground run start",
+    "playground:web": "bun --cwd apps/playground run web",
+    "playground:ios": "bun --cwd apps/playground run ios",
+    "playground:android": "bun --cwd apps/playground run android",
+    "build:registry": "bun run scripts/build-registry.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build:preview": "node scripts/build-preview.mjs"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "~19.2.0",
+    "typescript": "~5.9.2"
+  },
+  "packageManager": "bun@1.4.0"
+}

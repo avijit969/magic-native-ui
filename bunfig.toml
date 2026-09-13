@@ -1,0 +1,6 @@
+# React Native's Metro bundler resolves modules by walking node_modules
+# directories, so the isolated linker's symlink store breaks deep transitive
+# resolution (expo-modules-core, babel presets, ...). Hoisting matches what
+# Expo expects from a monorepo.
+[install]
+linker = "hoisted"
