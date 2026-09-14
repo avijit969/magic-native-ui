@@ -2,11 +2,12 @@ import * as AvatarPrimitive from '@rn-primitives/avatar'
 import { withUniwind } from 'uniwind'
 
 import { TextClassContext } from '@/registry/ui/text'
+import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const AvatarRoot = withUniwind(AvatarPrimitive.Root)
-const AvatarImagePrimitive = withUniwind(AvatarPrimitive.Image)
-const AvatarFallbackPrimitive = withUniwind(AvatarPrimitive.Fallback)
+const AvatarRoot = withUniwind(withFlatStyle(AvatarPrimitive.Root))
+const AvatarImagePrimitive = withUniwind(withFlatStyle(AvatarPrimitive.Image))
+const AvatarFallbackPrimitive = withUniwind(withFlatStyle(AvatarPrimitive.Fallback))
 
 type AvatarProps = React.ComponentProps<typeof AvatarRoot>
 

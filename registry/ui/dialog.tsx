@@ -4,26 +4,26 @@ import { View, type ViewProps } from 'react-native'
 import { withUniwind } from 'uniwind'
 
 import { iconWithClassName } from '@/registry/lib/icons'
+import { withFlatStyle } from '@/registry/lib/primitive'
 import { Text, TextClassContext } from '@/registry/ui/text'
 import { cn } from '@/registry/lib/utils'
 
-const DialogOverlayPrimitive = withUniwind(DialogPrimitive.Overlay)
-const DialogContentPrimitive = withUniwind(DialogPrimitive.Content)
-const DialogTriggerPrimitive = withUniwind(DialogPrimitive.Trigger)
-const DialogClosePrimitive = withUniwind(DialogPrimitive.Close)
-const DialogTitlePrimitive = withUniwind(DialogPrimitive.Title)
-const DialogDescriptionPrimitive = withUniwind(DialogPrimitive.Description)
+const DialogOverlayPrimitive = withUniwind(withFlatStyle(DialogPrimitive.Overlay))
+const DialogContentPrimitive = withUniwind(withFlatStyle(DialogPrimitive.Content))
+const DialogTriggerPrimitive = withUniwind(withFlatStyle(DialogPrimitive.Trigger))
+const DialogClosePrimitive = withUniwind(withFlatStyle(DialogPrimitive.Close))
+const DialogTitlePrimitive = withUniwind(withFlatStyle(DialogPrimitive.Title))
+const DialogDescriptionPrimitive = withUniwind(withFlatStyle(DialogPrimitive.Description))
 
 const XIcon = iconWithClassName(X)
 
 const Dialog = DialogPrimitive.Root
 const DialogPortal = DialogPrimitive.Portal
 
-function DialogTrigger({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogTriggerPrimitive>) {
-  return <DialogTriggerPrimitive className={className} {...props} />
+// Uniwind reads `className` as a style, so forwarding one the caller never
+// passed hands it `undefined` — spread the props through untouched instead.
+function DialogTrigger(props: React.ComponentProps<typeof DialogTriggerPrimitive>) {
+  return <DialogTriggerPrimitive {...props} />
 }
 
 function DialogOverlay({
@@ -93,8 +93,8 @@ function DialogDescription({
   )
 }
 
-function DialogClose({ className, ...props }: React.ComponentProps<typeof DialogClosePrimitive>) {
-  return <DialogClosePrimitive className={className} {...props} />
+function DialogClose(props: React.ComponentProps<typeof DialogClosePrimitive>) {
+  return <DialogClosePrimitive {...props} />
 }
 
 export {

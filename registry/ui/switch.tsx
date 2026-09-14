@@ -1,10 +1,11 @@
 import * as SwitchPrimitive from '@rn-primitives/switch'
 import { withUniwind } from 'uniwind'
 
+import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const SwitchRoot = withUniwind(SwitchPrimitive.Root)
-const SwitchThumb = withUniwind(SwitchPrimitive.Thumb)
+const SwitchRoot = withUniwind(withFlatStyle(SwitchPrimitive.Root))
+const SwitchThumb = withUniwind(withFlatStyle(SwitchPrimitive.Thumb))
 
 type SwitchProps = React.ComponentProps<typeof SwitchRoot>
 

@@ -1,9 +1,10 @@
 import * as SeparatorPrimitive from '@rn-primitives/separator'
 import { withUniwind } from 'uniwind'
 
+import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const SeparatorRoot = withUniwind(SeparatorPrimitive.Root)
+const SeparatorRoot = withUniwind(withFlatStyle(SeparatorPrimitive.Root))
 
 type SeparatorProps = React.ComponentProps<typeof SeparatorRoot>
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useLocalSearchParams } from 'expo-router'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Uniwind } from 'uniwind'
 
 import { demoNames, demos } from '@/components/demos'
@@ -27,8 +27,13 @@ export default function Preview() {
     }
   }, [theme])
 
+  // Demos that outgrow the iframe scroll rather than being clipped by it, which
+  // `justify-center` on a plain View would do.
   return (
-    <View className="flex-1 items-center justify-center bg-background p-6">
+    <ScrollView
+      className="flex-1 bg-background"
+      contentContainerClassName="grow items-center justify-center p-6"
+    >
       {Demo ? (
         <View className="w-full max-w-sm items-center">
           <Demo />
@@ -36,6 +41,6 @@ export default function Preview() {
       ) : (
         <Text className="text-muted-foreground">Unknown component: {String(key ?? name)}</Text>
       )}
-    </View>
+    </ScrollView>
   )
 }

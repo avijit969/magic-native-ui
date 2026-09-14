@@ -23,11 +23,14 @@ This repo is the registry and its playground. The CLI and the documentation site
 registry/                 files copied verbatim into user projects
   lib/utils.ts            cn()
   lib/icons.tsx           className -> color mapping for Lucide icons
+  lib/primitive.tsx       keeps class names intact through the web primitives
+  lib/hugeicons/          <Icon> renderer + the barrel the CLI vendors icons into
   themes/default.css      design tokens
   ui/*.tsx                the components
 apps/playground/          Expo app that renders every component on iOS, Android and web
 registry.json             the manifest the build script compiles
 scripts/build-registry.ts registry.json -> ../magic-native-ui-docs/public/r/*.json
+scripts/build-icons.ts    @hugeicons/core-free-icons -> ../magic-native-ui-docs/public/r/icons/
 scripts/build-preview.mjs playground -> ../magic-native-ui-docs/public/playground
 ```
 
@@ -40,6 +43,7 @@ that are actually run and verified.
 bun install
 bun run playground          # press i, a or w
 bun run build:registry      # regenerate the registry JSON
+bun run build:icons         # regenerate the icon index and shards
 bun run build:preview       # regenerate the docs previews
 ```
 
@@ -61,6 +65,14 @@ React Native is not the web, and a few differences shape every component here.
    render function recreates the wrapper on every render.
 6. **Themes are `@variant` blocks**, not a `.dark` class. See `registry/themes/default.css`; switch
    with `Uniwind.setTheme('dark' | 'light' | 'system')`.
+7. **Wrap primitives with `withFlatStyle()` too.** Uniwind resolves `className` into a `style`
+   *array*, and the web build of every `@rn-primitives` part hands its props to a Radix `asChild`
+   slot, which merges styles with an object spread — turning that array into `{ 0: ... }`. The
+   classes are dropped and the next render throws, blanking the tree. `registry/lib/primitive.tsx`
+   flattens the style first: `withUniwind(withFlatStyle(LabelPrimitive.Text))`.
+8. **Never forward a `className` the caller did not pass.** `className={className}` sends
+   `undefined` into Uniwind, which styleq then rejects. Spread the props instead, or run the value
+   through `cn()`.
 
 ## Adding a component
 
@@ -68,6 +80,18 @@ React Native is not the web, and a few differences shape every component here.
 2. Add a demo to `apps/playground/components/demos.tsx` and render it in `apps/playground/app/index.tsx`.
 3. Add an entry to `registry.json` with its npm and registry dependencies.
 4. Run `bun run build:registry`, then verify on all three platforms.
+
+## Icons
+
+`@hugeicons/core-free-icons` is a devDependency here and never ships to a user's project. Its
+6.18 MB barrel is compiled by `bun run build:icons` into an index plus 22 shards of path data, and
+`magic-native-ui icon add heart` copies just the icons you name into `lib/hugeicons/icons.ts`.
+
+Exports keep the upstream Hugeicons name (`HeartIcon`, `Add01Icon`); the registry name is its
+kebab-case form (`heart`, `add-01`). Where upstream ships one drawing under several names, the
+least-shouting `*Icon` spelling wins and the rest become searchable aliases — so `icon add plus`
+resolves to `AddIcon`. Rerun `build:icons` to take a new upstream version; the script fails rather
+than emitting two icons that claim the same name.
 
 ## Metro configuration
 

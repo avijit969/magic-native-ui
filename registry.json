@@ -12,12 +12,32 @@
       "files": [{ "path": "registry/lib/utils.ts", "type": "registry:lib" }]
     },
     {
+      "name": "primitive",
+      "type": "registry:lib",
+      "title": "Primitive helpers",
+      "description": "Keeps Uniwind class names intact through the Radix slots the web primitives use.",
+      "files": [{ "path": "registry/lib/primitive.tsx", "type": "registry:lib" }]
+    },
+    {
       "name": "icons",
       "type": "registry:lib",
       "title": "Icons",
       "description": "Adds className support to Lucide icons by mapping it onto the color prop.",
       "dependencies": ["lucide-react-native", "react-native-svg"],
       "files": [{ "path": "registry/lib/icons.tsx", "type": "registry:lib" }]
+    },
+    {
+      "name": "hugeicons",
+      "type": "registry:lib",
+      "title": "Hugeicons",
+      "description": "Renders Hugeicons data with react-native-svg, coloured through className.",
+      "dependencies": ["react-native-svg"],
+      "files": [
+        { "path": "registry/lib/hugeicons/types.ts", "type": "registry:lib", "target": "hugeicons/types.ts" },
+        { "path": "registry/lib/hugeicons/icon.tsx", "type": "registry:lib", "target": "hugeicons/icon.tsx" },
+        { "path": "registry/lib/hugeicons/icons.ts", "type": "registry:lib", "target": "hugeicons/icons.ts" },
+        { "path": "registry/lib/hugeicons/index.ts", "type": "registry:lib", "target": "hugeicons/index.ts" }
+      ]
     },
     {
       "name": "theme",
@@ -44,6 +64,24 @@
       "files": [{ "path": "registry/ui/button.tsx", "type": "registry:ui" }]
     },
     {
+      "name": "tactile-button",
+      "type": "registry:ui",
+      "title": "Tactile Button",
+      "description": "Button with 3D depth, whose side colour is derived from the face colour prop.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/tactile-button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tab-bar",
+      "type": "registry:ui",
+      "title": "Tab Bar",
+      "description": "Floating tab bar with a liquid-glass pill you can hold and slide between tabs.",
+      "dependencies": ["expo-blur"],
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/tab-bar.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
@@ -64,9 +102,36 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "Single-line text field with focus and disabled states.",
+      "description": "Single-line text field in four designs, three sizes, with invalid and disabled states.",
+      "dependencies": ["class-variance-authority"],
       "registryDependencies": ["utils"],
       "files": [{ "path": "registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Field framed with icons, units or buttons on either side.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "input", "text"],
+      "files": [{ "path": "registry/ui/input-group.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "One-time-code field drawn as separate slots over a single input.",
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/input-otp.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text field sharing the input's designs and states.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/textarea.tsx", "type": "registry:ui" }]
     },
     {
       "name": "label",
@@ -74,7 +139,7 @@
       "title": "Label",
       "description": "Accessible label bound to a form control.",
       "dependencies": ["@rn-primitives/label"],
-      "registryDependencies": ["utils"],
+      "registryDependencies": ["utils", "primitive"],
       "files": [{ "path": "registry/ui/label.tsx", "type": "registry:ui" }]
     },
     {
@@ -83,7 +148,7 @@
       "title": "Separator",
       "description": "Horizontal or vertical rule.",
       "dependencies": ["@rn-primitives/separator"],
-      "registryDependencies": ["utils"],
+      "registryDependencies": ["utils", "primitive"],
       "files": [{ "path": "registry/ui/separator.tsx", "type": "registry:ui" }]
     },
     {
@@ -100,7 +165,7 @@
       "title": "Avatar",
       "description": "Image with an automatic fallback.",
       "dependencies": ["@rn-primitives/avatar"],
-      "registryDependencies": ["utils", "text"],
+      "registryDependencies": ["utils", "primitive", "text"],
       "files": [{ "path": "registry/ui/avatar.tsx", "type": "registry:ui" }]
     },
     {
@@ -109,7 +174,7 @@
       "title": "Switch",
       "description": "Toggle control styled through data-state selectors.",
       "dependencies": ["@rn-primitives/switch"],
-      "registryDependencies": ["utils"],
+      "registryDependencies": ["utils", "primitive"],
       "files": [{ "path": "registry/ui/switch.tsx", "type": "registry:ui" }]
     },
     {
@@ -118,7 +183,7 @@
       "title": "Checkbox",
       "description": "Checkbox with an icon indicator.",
       "dependencies": ["@rn-primitives/checkbox"],
-      "registryDependencies": ["utils", "icons"],
+      "registryDependencies": ["utils", "primitive", "icons"],
       "files": [{ "path": "registry/ui/checkbox.tsx", "type": "registry:ui" }]
     },
     {
@@ -127,7 +192,7 @@
       "title": "Dialog",
       "description": "Modal dialog rendered through a portal, with overlay and close button.",
       "dependencies": ["@rn-primitives/dialog", "@rn-primitives/portal"],
-      "registryDependencies": ["utils", "icons", "text"],
+      "registryDependencies": ["utils", "primitive", "icons", "text"],
       "files": [{ "path": "registry/ui/dialog.tsx", "type": "registry:ui" }]
     }
   ]

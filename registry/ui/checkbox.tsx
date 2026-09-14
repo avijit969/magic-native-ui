@@ -3,10 +3,11 @@ import { Check } from 'lucide-react-native'
 import { withUniwind } from 'uniwind'
 
 import { iconWithClassName } from '@/registry/lib/icons'
+import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const CheckboxRoot = withUniwind(CheckboxPrimitive.Root)
-const CheckboxIndicator = withUniwind(CheckboxPrimitive.Indicator)
+const CheckboxRoot = withUniwind(withFlatStyle(CheckboxPrimitive.Root))
+const CheckboxIndicator = withUniwind(withFlatStyle(CheckboxPrimitive.Indicator))
 const CheckIcon = iconWithClassName(Check)
 
 type CheckboxProps = React.ComponentProps<typeof CheckboxRoot>
