@@ -28,8 +28,10 @@ registry/                 files copied verbatim into user projects
   themes/default.css      design tokens
   ui/*.tsx                the components
 apps/playground/          Expo app that renders every component on iOS, Android and web
+  components/demos/       one usage example per component, shipped to the docs as its Usage code
 registry.json             the manifest the build script compiles
 scripts/build-registry.ts registry.json -> ../magic-native-ui-docs/public/r/*.json
+scripts/build-demos.ts    playground demos -> ../magic-native-ui-docs/public/r/demos/*.json
 scripts/build-icons.ts    @hugeicons/core-free-icons -> ../magic-native-ui-docs/public/r/icons/
 scripts/build-preview.mjs playground -> ../magic-native-ui-docs/public/playground
 ```
@@ -43,6 +45,7 @@ that are actually run and verified.
 bun install
 bun run playground          # press i, a or w
 bun run build:registry      # regenerate the registry JSON
+bun run build:demos         # regenerate the usage examples the docs show
 bun run build:icons         # regenerate the icon index and shards
 bun run build:preview       # regenerate the docs previews
 ```
@@ -77,9 +80,14 @@ React Native is not the web, and a few differences shape every component here.
 ## Adding a component
 
 1. Write `registry/ui/<name>.tsx` following the conventions above.
-2. Add a demo to `apps/playground/components/demos.tsx` and render it in `apps/playground/app/index.tsx`.
-3. Add an entry to `registry.json` with its npm and registry dependencies.
-4. Run `bun run build:registry`, then verify on all three platforms.
+2. Add `apps/playground/components/demos/<name>-demo.tsx` and register it in
+   `apps/playground/components/demos/index.ts`. One self-contained file per component: it is both
+   the preview the docs embed and the Usage code they print, so it has to read well on its own and
+   import nothing but the registry.
+3. Render it in `apps/playground/app/index.tsx` so the gallery covers it too.
+4. Add an entry to `registry.json` with its npm and registry dependencies.
+5. Run `bun run build:registry && bun run build:demos && bun run build:preview`, then verify on all
+   three platforms.
 
 ## Icons
 
