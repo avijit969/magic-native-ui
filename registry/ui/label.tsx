@@ -1,24 +1,20 @@
-import * as LabelPrimitive from '@rn-primitives/label'
-import { withUniwind } from 'uniwind'
+import { Text as RNText } from 'react-native'
 
-import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const LabelRoot = withUniwind(withFlatStyle(LabelPrimitive.Root))
-const LabelText = withUniwind(withFlatStyle(LabelPrimitive.Text))
+type LabelProps = React.ComponentProps<typeof RNText>
 
-type LabelProps = React.ComponentProps<typeof LabelText> & {
-  onPress?: React.ComponentProps<typeof LabelRoot>['onPress']
-}
-
-function Label({ className, onPress, ...props }: LabelProps) {
+/**
+ * React Native has no `<label for>`: bind a label to its control by giving the
+ * label a `nativeID` and pointing the control's `aria-labelledby` at it. `Text`
+ * takes an `onPress` of its own if you want the label to act on the control.
+ */
+function Label({ className, ...props }: LabelProps) {
   return (
-    <LabelRoot onPress={onPress}>
-      <LabelText
-        className={cn('text-sm font-medium leading-none text-foreground', className)}
-        {...props}
-      />
-    </LabelRoot>
+    <RNText
+      className={cn('text-sm font-medium leading-none text-foreground', className)}
+      {...props}
+    />
   )
 }
 

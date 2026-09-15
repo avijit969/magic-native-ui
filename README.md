@@ -5,8 +5,8 @@ Nothing here is published as a component library: a CLI copies source files into
 you own them from that point on.
 
 - **Styling** — [Uniwind](https://uniwind.dev) compiles Tailwind v4 classes into native styles.
-- **Behaviour** — [`@rn-primitives/*`](https://rnprimitives.com) supplies unstyled, accessible
-  primitives (Radix on web, native accessibility APIs on device).
+- **Behaviour** — React Native's own components (`Pressable`, `Modal`, `Image`) plus the platform
+  accessibility props. No third-party behaviour library, on any platform.
 - **Variants** — `class-variance-authority`, the same as on the web.
 
 ## Repository layout
@@ -23,7 +23,6 @@ This repo is the registry and its playground. The CLI and the documentation site
 registry/                 files copied verbatim into user projects
   lib/utils.ts            cn()
   lib/icons.tsx           className -> color mapping for Lucide icons
-  lib/primitive.tsx       keeps class names intact through the web primitives
   lib/hugeicons/          <Icon> renderer + the barrel the CLI vendors icons into
   themes/default.css      design tokens
   ui/*.tsx                the components
@@ -64,18 +63,16 @@ React Native is not the web, and a few differences shape every component here.
 4. **Inline `style` always beats `className`.** Never spread a caller's `style` over a component's
    own classes; `registry/ui/skeleton.tsx` passes one deliberately, for the animated opacity only.
 5. **Wrap with `withUniwind()` at module scope.** Any component that is not a React Native core
-   component — every `@rn-primitives` part, every Lucide icon — needs it, and wrapping inside a
-   render function recreates the wrapper on every render.
+   component — every Lucide icon, for instance — needs it, and wrapping inside a render function
+   recreates the wrapper on every render. Build on the core components wherever you can and the
+   question does not come up.
 6. **Themes are `@variant` blocks**, not a `.dark` class. See `registry/themes/default.css`; switch
    with `Uniwind.setTheme('dark' | 'light' | 'system')`.
-7. **Wrap primitives with `withFlatStyle()` too.** Uniwind resolves `className` into a `style`
-   *array*, and the web build of every `@rn-primitives` part hands its props to a Radix `asChild`
-   slot, which merges styles with an object spread — turning that array into `{ 0: ... }`. The
-   classes are dropped and the next render throws, blanking the tree. `registry/lib/primitive.tsx`
-   flattens the style first: `withUniwind(withFlatStyle(LabelPrimitive.Text))`.
-8. **Never forward a `className` the caller did not pass.** `className={className}` sends
+7. **Never forward a `className` the caller did not pass.** `className={className}` sends
    `undefined` into Uniwind, which styleq then rejects. Spread the props instead, or run the value
    through `cn()`.
+8. **No Radix slot.** `asChild` is implemented where it is needed by cloning the single child —
+   see `PressableSlot` in `registry/ui/dialog.tsx`.
 
 ## Adding a component
 
@@ -107,6 +104,6 @@ Two things in `apps/playground/metro.config.js` are easy to get wrong and are re
 CLI's `init`:
 
 - `withUniwindConfig` must be the **outermost** wrapper.
-- Package exports are disabled globally and re-enabled only for `uniwind`, `culori` and
-  `@radix-ui`. React Native still uses deep imports that break when exports are on, while those
-  three packages require them.
+- Package exports are disabled globally and re-enabled only for `uniwind` and `culori`. React
+  Native still uses deep imports that break when exports are on, while those two packages require
+  them.

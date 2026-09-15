@@ -12,13 +12,6 @@
       "files": [{ "path": "registry/lib/utils.ts", "type": "registry:lib" }]
     },
     {
-      "name": "primitive",
-      "type": "registry:lib",
-      "title": "Primitive helpers",
-      "description": "Keeps Uniwind class names intact through the Radix slots the web primitives use.",
-      "files": [{ "path": "registry/lib/primitive.tsx", "type": "registry:lib" }]
-    },
-    {
       "name": "icons",
       "type": "registry:lib",
       "title": "Icons",
@@ -138,8 +131,7 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "Accessible label bound to a form control.",
-      "dependencies": ["@rn-primitives/label"],
-      "registryDependencies": ["utils", "primitive"],
+      "registryDependencies": ["utils"],
       "files": [{ "path": "registry/ui/label.tsx", "type": "registry:ui" }]
     },
     {
@@ -147,8 +139,7 @@
       "type": "registry:ui",
       "title": "Separator",
       "description": "Horizontal or vertical rule.",
-      "dependencies": ["@rn-primitives/separator"],
-      "registryDependencies": ["utils", "primitive"],
+      "registryDependencies": ["utils"],
       "files": [{ "path": "registry/ui/separator.tsx", "type": "registry:ui" }]
     },
     {
@@ -164,8 +155,7 @@
       "type": "registry:ui",
       "title": "Avatar",
       "description": "Image with an automatic fallback.",
-      "dependencies": ["@rn-primitives/avatar"],
-      "registryDependencies": ["utils", "primitive", "text"],
+      "registryDependencies": ["utils", "text"],
       "files": [{ "path": "registry/ui/avatar.tsx", "type": "registry:ui" }]
     },
     {
@@ -173,8 +163,7 @@
       "type": "registry:ui",
       "title": "Switch",
       "description": "Toggle control styled through data-state selectors.",
-      "dependencies": ["@rn-primitives/switch"],
-      "registryDependencies": ["utils", "primitive"],
+      "registryDependencies": ["utils"],
       "files": [{ "path": "registry/ui/switch.tsx", "type": "registry:ui" }]
     },
     {
@@ -182,17 +171,15 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "Checkbox with an icon indicator.",
-      "dependencies": ["@rn-primitives/checkbox"],
-      "registryDependencies": ["utils", "primitive", "icons"],
+      "registryDependencies": ["utils", "icons"],
       "files": [{ "path": "registry/ui/checkbox.tsx", "type": "registry:ui" }]
     },
     {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "Modal dialog rendered through a portal, with overlay and close button.",
-      "dependencies": ["@rn-primitives/dialog", "@rn-primitives/portal"],
-      "registryDependencies": ["utils", "primitive", "icons", "text"],
+      "description": "Dialog rendered in a native modal, with overlay and close button.",
+      "registryDependencies": ["utils", "icons", "text"],
       "files": [{ "path": "registry/ui/dialog.tsx", "type": "registry:ui" }]
     }
   ]

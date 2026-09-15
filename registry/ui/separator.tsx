@@ -1,12 +1,12 @@
-import * as SeparatorPrimitive from '@rn-primitives/separator'
-import { withUniwind } from 'uniwind'
+import { View } from 'react-native'
 
-import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const SeparatorRoot = withUniwind(withFlatStyle(SeparatorPrimitive.Root))
-
-type SeparatorProps = React.ComponentProps<typeof SeparatorRoot>
+type SeparatorProps = React.ComponentProps<typeof View> & {
+  orientation?: 'horizontal' | 'vertical'
+  /** A purely visual rule, hidden from assistive technology. */
+  decorative?: boolean
+}
 
 function Separator({
   className,
@@ -15,9 +15,9 @@ function Separator({
   ...props
 }: SeparatorProps) {
   return (
-    <SeparatorRoot
-      orientation={orientation}
-      decorative={decorative}
+    <View
+      role={decorative ? 'presentation' : 'separator'}
+      aria-hidden={decorative}
       className={cn(
         'shrink-0 bg-border',
         orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',

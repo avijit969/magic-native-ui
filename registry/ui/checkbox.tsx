@@ -1,21 +1,36 @@
-import * as CheckboxPrimitive from '@rn-primitives/checkbox'
 import { Check } from 'lucide-react-native'
-import { withUniwind } from 'uniwind'
+import { Pressable, View, type GestureResponderEvent } from 'react-native'
 
 import { iconWithClassName } from '@/registry/lib/icons'
-import { withFlatStyle } from '@/registry/lib/primitive'
 import { cn } from '@/registry/lib/utils'
 
-const CheckboxRoot = withUniwind(withFlatStyle(CheckboxPrimitive.Root))
-const CheckboxIndicator = withUniwind(withFlatStyle(CheckboxPrimitive.Indicator))
 const CheckIcon = iconWithClassName(Check)
 
-type CheckboxProps = React.ComponentProps<typeof CheckboxRoot>
+type CheckboxProps = Omit<React.ComponentProps<typeof Pressable>, 'children'> & {
+  checked: boolean
+  onCheckedChange: (checked: boolean) => void
+}
 
-function Checkbox({ className, checked, ...props }: CheckboxProps) {
+function Checkbox({
+  className,
+  checked,
+  onCheckedChange,
+  disabled,
+  onPress,
+  ...props
+}: CheckboxProps) {
+  function handlePress(event: GestureResponderEvent) {
+    onCheckedChange(!checked)
+    onPress?.(event)
+  }
+
   return (
-    <CheckboxRoot
-      checked={checked}
+    <Pressable
+      role="checkbox"
+      aria-checked={checked}
+      aria-disabled={disabled ?? undefined}
+      disabled={disabled}
+      onPress={handlePress}
       data-state={checked ? 'checked' : 'unchecked'}
       className={cn(
         'h-4 w-4 shrink-0 items-center justify-center rounded-sm border border-primary',
@@ -25,10 +40,12 @@ function Checkbox({ className, checked, ...props }: CheckboxProps) {
       )}
       {...props}
     >
-      <CheckboxIndicator className="h-full w-full items-center justify-center">
-        <CheckIcon size={12} className="text-primary-foreground" />
-      </CheckboxIndicator>
-    </CheckboxRoot>
+      {checked ? (
+        <View role="presentation" className="h-full w-full items-center justify-center">
+          <CheckIcon size={12} className="text-primary-foreground" />
+        </View>
+      ) : null}
+    </Pressable>
   )
 }
 

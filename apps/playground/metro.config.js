@@ -18,11 +18,10 @@ config.resolver.nodeModulesPaths = [
 
 // React Native itself still relies on deep imports such as
 // `react-native/rn-get-polyfills`, which break when package exports are on.
-// Uniwind (with its culori dependency) and Radix - which @rn-primitives uses
-// for its web implementation - require the opposite, so exports are disabled
-// globally and re-enabled for just those.
+// Uniwind (with its culori dependency) requires the opposite, so exports are
+// disabled globally and re-enabled for just those.
 // https://docs.uniwind.dev/faq
-const PACKAGE_EXPORTS_ALLOWLIST = ['uniwind', 'culori', '@radix-ui']
+const PACKAGE_EXPORTS_ALLOWLIST = ['uniwind', 'culori']
 
 config.resolver.unstable_enablePackageExports = false
 config.resolver.resolveRequest = (context, moduleName, platform) => {
