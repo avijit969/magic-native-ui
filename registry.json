@@ -33,6 +33,13 @@
       ]
     },
     {
+      "name": "anchor",
+      "type": "registry:lib",
+      "title": "Anchor",
+      "description": "Measures a trigger and places an overlay beside it, flipping and clamping at the screen edges.",
+      "files": [{ "path": "registry/lib/anchor.ts", "type": "registry:lib" }]
+    },
+    {
       "name": "theme",
       "type": "registry:theme",
       "title": "Default theme",
@@ -151,6 +158,23 @@
       "files": [{ "path": "registry/ui/skeleton.tsx", "type": "registry:ui" }]
     },
     {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Callout for a message that needs attention, with an optional leading icon.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "text"],
+      "files": [{ "path": "registry/ui/alert.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Determinate progress bar whose fill is a percentage of the track.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/progress.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
@@ -175,12 +199,44 @@
       "files": [{ "path": "registry/ui/checkbox.tsx", "type": "registry:ui" }]
     },
     {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Single-choice group whose items style themselves from their own data-state.",
+      "registryDependencies": ["utils"],
+      "files": [{ "path": "registry/ui/radio-group.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
       "description": "Dialog rendered in a native modal, with overlay and close button.",
       "registryDependencies": ["utils", "icons", "text"],
       "files": [{ "path": "registry/ui/dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Content anchored to a trigger, rendered in a native modal and positioned by hand.",
+      "registryDependencies": ["utils", "anchor"],
+      "files": [{ "path": "registry/ui/popover.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Menu anchored to its trigger, with items, checkbox items, labels and separators.",
+      "registryDependencies": ["utils", "anchor", "icons", "text"],
+      "files": [{ "path": "registry/ui/dropdown-menu.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Long-press menu that opens at the touch point, with the dropdown menu's item vocabulary.",
+      "registryDependencies": ["utils", "anchor", "icons", "text"],
+      "files": [{ "path": "registry/ui/context-menu.tsx", "type": "registry:ui" }]
     }
   ]
 }

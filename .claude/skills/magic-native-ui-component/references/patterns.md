@@ -12,6 +12,7 @@ variation — a consumer reading two of these files should find the same skeleto
 - [Controlled and uncontrolled in one component](#controlled-and-uncontrolled-in-one-component)
 - [State without `group-*`](#state-without-group-)
 - [`asChild`](#aschild)
+- [Anchored overlays](#anchored-overlays)
 - [Icons inside a component](#icons-inside-a-component)
 - [Platform differences](#platform-differences)
 
@@ -172,6 +173,49 @@ pixels, `aria-*` drives screen readers, and they are not interchangeable.
 See rule 8 in `conventions.md` for `PressableSlot` and the two ordering decisions inside it. Add
 `asChild` only to triggers and closers — the places where a caller legitimately wants their own
 `Button` to be the thing that opens or closes something.
+
+## Anchored overlays
+
+Anything that hangs off a trigger — popover, dropdown menu, context menu, and a select or tooltip
+when they arrive — follows one shape, because React Native has neither a portal nor a popper.
+
+1. **Measure the trigger** with `measureAnchor(ref)` from `registry/lib/anchor.ts`, on open rather
+   than on mount. A trigger inside a list that has scrolled has moved since it mounted.
+2. **Render into a `Modal`.** It lifts the content above the tree the way a portal does, closes on
+   the Android back button, and needs no host component at the app root.
+3. **Lay out invisibly, then position.** The content's size is unknown until it has been laid out,
+   so it renders at `opacity: 0`, reports its size through `onLayout`, and only then gets a
+   position. Skip this and the first frame is drawn at the top left corner and visibly jumps.
+4. **Place it with `positionContent`**, which flips to the opposite side when the preferred one
+   cannot fit and clamps the result inside the window.
+
+```tsx
+const position =
+  anchor && size
+    ? positionContent({ anchor, content: size, window, side, align, offset: sideOffset })
+    : null
+
+<View
+  onLayout={handleLayout}
+  // Absolute placement is measured in pixels, which no class can carry.
+  style={
+    position
+      ? { position: 'absolute', top: position.top, left: position.left }
+      : { position: 'absolute', opacity: 0 }
+  }
+  className={cn('z-50 rounded-md border border-border bg-popover shadow-md', className)}
+/>
+```
+
+Two deliberate choices worth keeping. The positioning maths lives in `lib/anchor` rather than in
+each component, because flipping and clamping are the parts that go subtly wrong and four copies
+would drift. The `Modal` block, by contrast, is repeated in each component — it is plain
+boilerplate, and a stranger reading one copied file should not have to open another to understand
+how the overlay is mounted.
+
+`registry/ui/popover.tsx` is the smallest complete example. `context-menu.tsx` shows the variation
+where the anchor is a touch point rather than an element: `rectFromPoint(pageX, pageY)` from the
+long-press event, since React Native has no secondary click on any platform.
 
 ## Icons inside a component
 

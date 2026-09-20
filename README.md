@@ -118,6 +118,25 @@ least-shouting `*Icon` spelling wins and the rest become searchable aliases — 
 resolves to `AddIcon`. Rerun `build:icons` to take a new upstream version; the script fails rather
 than emitting two icons that claim the same name.
 
+## Anchored overlays
+
+Popover, Dropdown Menu and Context Menu all hang off a trigger, and React Native gives them
+neither a portal nor a popper. They follow one shape:
+
+1. Measure the trigger with `measureAnchor()` on open, not on mount — a trigger in a scrolled list
+   has moved since it mounted.
+2. Render into a `Modal`, which lifts the content above the tree and closes on the Android back
+   button.
+3. Lay the content out invisibly to learn its size, then position it. Without that pass the first
+   frame is drawn at the top left corner and visibly jumps.
+4. Place it with `positionContent()`, which flips to the opposite side when the preferred one does
+   not fit and clamps the result inside the window.
+
+The maths lives in `registry/lib/anchor.ts` because flipping and clamping are what go subtly
+wrong; the `Modal` block is repeated per component, so a copied file can be read on its own.
+Context Menu differs in one place only — its anchor is `rectFromPoint()` from a long press, since
+no platform here has a secondary click.
+
 ## Metro configuration
 
 Two things in `apps/playground/metro.config.js` are easy to get wrong and are reproduced by the

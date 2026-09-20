@@ -5,16 +5,22 @@
  */
 import type * as React from 'react'
 
+import { AlertDemo } from './alert-demo'
 import { AvatarDemo } from './avatar-demo'
 import { BadgeDemo } from './badge-demo'
 import { ButtonDemo } from './button-demo'
 import { CardDemo } from './card-demo'
 import { CheckboxDemo } from './checkbox-demo'
+import { ContextMenuDemo } from './context-menu-demo'
 import { DialogDemo } from './dialog-demo'
+import { DropdownMenuDemo } from './dropdown-menu-demo'
 import { InputDemo } from './input-demo'
 import { InputGroupDemo } from './input-group-demo'
 import { InputOTPDemo } from './input-otp-demo'
 import { LabelDemo } from './label-demo'
+import { PopoverDemo } from './popover-demo'
+import { ProgressDemo } from './progress-demo'
+import { RadioGroupDemo } from './radio-group-demo'
 import { SeparatorDemo } from './separator-demo'
 import { SkeletonDemo } from './skeleton-demo'
 import { SwitchDemo } from './switch-demo'
@@ -25,16 +31,22 @@ import { TextareaDemo } from './textarea-demo'
 
 /** Keys are registry item names, so `preview/<name>` matches `add <name>`. */
 export const demos: Record<string, React.ComponentType> = {
+  alert: AlertDemo,
   avatar: AvatarDemo,
   badge: BadgeDemo,
   button: ButtonDemo,
   card: CardDemo,
   checkbox: CheckboxDemo,
+  'context-menu': ContextMenuDemo,
   dialog: DialogDemo,
+  'dropdown-menu': DropdownMenuDemo,
   input: InputDemo,
   'input-group': InputGroupDemo,
   'input-otp': InputOTPDemo,
   label: LabelDemo,
+  popover: PopoverDemo,
+  progress: ProgressDemo,
+  'radio-group': RadioGroupDemo,
   separator: SeparatorDemo,
   skeleton: SkeletonDemo,
   switch: SwitchDemo,

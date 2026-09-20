@@ -3,17 +3,21 @@ import { Pressable, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Uniwind, useUniwind } from 'uniwind'
 import {
+  ChevronDown,
   CircleUserRound,
   Eye,
   EyeOff,
   Heart,
   House,
+  Info,
   LayoutGrid,
   PlayCircle,
   Search,
   ShoppingCart,
+  TriangleAlert,
 } from 'lucide-react-native'
 
+import { Alert, AlertContent, AlertDescription, AlertTitle } from '@/registry/ui/alert'
 import { Avatar, AvatarFallback, AvatarImage } from '@/registry/ui/avatar'
 import { Badge } from '@/registry/ui/badge'
 import { Button } from '@/registry/ui/button'
@@ -27,6 +31,14 @@ import {
 } from '@/registry/ui/card'
 import { Checkbox } from '@/registry/ui/checkbox'
 import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/registry/ui/context-menu'
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -35,10 +47,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/registry/ui/dialog'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/registry/ui/dropdown-menu'
 import { Input } from '@/registry/ui/input'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/registry/ui/input-group'
 import { InputOTP } from '@/registry/ui/input-otp'
 import { Label } from '@/registry/ui/label'
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from '@/registry/ui/popover'
+import { Progress } from '@/registry/ui/progress'
+import { RadioGroup, RadioGroupItem } from '@/registry/ui/radio-group'
 import { Separator } from '@/registry/ui/separator'
 import { Skeleton } from '@/registry/ui/skeleton'
 import { Switch } from '@/registry/ui/switch'
@@ -56,6 +80,9 @@ const PlayIcon = iconWithClassName(PlayCircle)
 const GridIcon = iconWithClassName(LayoutGrid)
 const AccountIcon = iconWithClassName(CircleUserRound)
 const CartIcon = iconWithClassName(ShoppingCart)
+const ChevronDownIcon = iconWithClassName(ChevronDown)
+const InfoIcon = iconWithClassName(Info)
+const WarningIcon = iconWithClassName(TriangleAlert)
 
 type Tab = { value: string; label: string; Icon: typeof HouseIcon; badge?: string }
 
@@ -85,6 +112,9 @@ export default function Gallery() {
   const [password, setPassword] = React.useState(false)
   const [code, setCode] = React.useState('')
   const [tab, setTab] = React.useState<string>('home')
+  const [progress, setProgress] = React.useState(45)
+  const [plan, setPlan] = React.useState('pro')
+  const [compact, setCompact] = React.useState(true)
 
   return (
     <ScrollView
@@ -356,6 +386,133 @@ export default function Gallery() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+      </Section>
+
+      <Section title="Alert">
+        <Alert>
+          <InfoIcon size={18} className="text-foreground" />
+          <AlertContent>
+            <AlertTitle>Heads up</AlertTitle>
+            <AlertDescription>
+              Components are copied into your project, so you can edit them freely.
+            </AlertDescription>
+          </AlertContent>
+        </Alert>
+        <Alert variant="destructive">
+          <WarningIcon size={18} className="text-destructive" />
+          <AlertContent>
+            <AlertTitle>Could not save</AlertTitle>
+            <AlertDescription>Check your connection and try again.</AlertDescription>
+          </AlertContent>
+        </Alert>
+      </Section>
+
+      <Section title="Progress">
+        <Progress value={progress} />
+        <View className="flex-row gap-2">
+          <Button
+            size="sm"
+            variant="outline"
+            onPress={() => setProgress(Math.max(0, progress - 20))}
+          >
+            <Text>Less</Text>
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onPress={() => setProgress(Math.min(100, progress + 20))}
+          >
+            <Text>More</Text>
+          </Button>
+        </View>
+      </Section>
+
+      <Section title="Radio Group">
+        <RadioGroup value={plan} onValueChange={setPlan}>
+          {['starter', 'pro', 'team'].map((option) => (
+            <Pressable
+              key={option}
+              onPress={() => setPlan(option)}
+              className="flex-row items-center gap-3"
+            >
+              <RadioGroupItem value={option} />
+              <Label>{option}</Label>
+            </Pressable>
+          ))}
+        </RadioGroup>
+      </Section>
+
+      <Section title="Popover">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">
+              <Text>Open popover</Text>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <View className="gap-3">
+              <Text className="text-sm font-medium">Dimensions</Text>
+              <Text className="text-xs text-muted-foreground">Set the size of the layer.</Text>
+              <PopoverClose asChild>
+                <Button size="sm">
+                  <Text>Done</Text>
+                </Button>
+              </PopoverClose>
+            </View>
+          </PopoverContent>
+        </Popover>
+      </Section>
+
+      <Section title="Dropdown Menu">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              <Text>Options</Text>
+              <ChevronDownIcon size={16} className="text-foreground" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>My account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Text>Profile</Text>
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled>
+              <Text>Team</Text>
+            </DropdownMenuItem>
+            <DropdownMenuCheckboxItem checked={compact} onCheckedChange={setCompact}>
+              <Text>Compact rows</Text>
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">
+              <Text>Sign out</Text>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </Section>
+
+      <Section title="Context Menu">
+        <ContextMenu>
+          <ContextMenuTrigger>
+            <View className="h-24 items-center justify-center rounded-md border border-dashed border-border">
+              <Text className="text-sm text-muted-foreground">Long press here</Text>
+            </View>
+          </ContextMenuTrigger>
+          <ContextMenuContent className="w-52">
+            <ContextMenuLabel>Document</ContextMenuLabel>
+            <ContextMenuSeparator />
+            <ContextMenuItem>
+              <Text>Open</Text>
+            </ContextMenuItem>
+            <ContextMenuItem>
+              <Text>Duplicate</Text>
+            </ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem variant="destructive">
+              <Text>Delete</Text>
+            </ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
       </Section>
     </ScrollView>
   )

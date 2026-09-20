@@ -119,9 +119,16 @@ guess the API, and that familiarity is most of this registry's value.
 ## Accessibility
 
 RN's own accessibility props are the behaviour layer here — no primitives library is supplying
-roles. Set `role`, plus the `aria-*` props the platform maps (`aria-checked`, `aria-disabled`,
-`aria-valuetext`, `aria-label`), the way `switch.tsx` does. A `Pressable` with no role is
-invisible to screen readers on both platforms.
+roles. Set `role`, plus the `aria-*` props the platform maps, the way `switch.tsx` does. A
+`Pressable` with no role is invisible to screen readers on both platforms.
+
+**React Native maps only a subset of `aria-*`**, and the rest are a silent no-op: React's JSX
+types allow any `aria-*` attribute, so a web habit like `aria-haspopup` or `aria-controls`
+typechecks cleanly and then does nothing. The supported set is `aria-label`, `aria-labelledby`,
+`aria-live`, `aria-modal`, `aria-hidden`, `aria-busy`, `aria-checked`, `aria-disabled`,
+`aria-expanded`, `aria-selected`, `aria-required` and the `aria-value*` family — check
+`node_modules/react-native/Libraries/Components/View/ViewAccessibility.d.ts` before adding one you
+have not seen used in this repo.
 
 ## Reviewing a component
 
