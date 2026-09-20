@@ -82,4 +82,5 @@ bun run playground
       per platform; one platform looking right says nothing about the other two.
 - [ ] Verified in both themes — `Uniwind.setTheme('dark')` in the playground.
 - [ ] The generated `public/r/<name>.json` in `magic-native-ui-docs` contains the file content you
-      expect, with imports rewritten to `@/components/ui/...` and `@/lib/...`.
+      expect. Its imports stay as `@/registry/...` — the CLI rewrites them on install. It is
+      `public/r/demos/<name>.json` that should read `@/components/ui/...` and `@/lib/...`.

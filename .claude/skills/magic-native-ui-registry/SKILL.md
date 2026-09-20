@@ -79,8 +79,10 @@ dependencies, and `react`/`react-native` are assumed present.
 
 Regenerating is not the same as verifying. After the scripts run:
 
-1. Read the generated `public/r/<name>.json`. The `files[].content` should have imports rewritten
-   to a consumer's aliases — `@/components/ui/...`, `@/lib/...` — not `@/registry/...`.
+1. Read the generated `public/r/<name>.json`. Its `files[].content` still imports through
+   `@/registry/...`, and should — the CLI rewrites to a project's aliases at install time, so the
+   registry stays independent of any one project's layout. The demos JSON is the opposite case: it
+   is rewritten at build time, because the docs print it as code to paste.
 2. Check `public/r/index.json` lists the item, since the docs sidebar and `magic-native-ui list`
    both read it.
 3. Check `public/r/demos/<name>.json` exists. If it does not, the demo file name or its key in
