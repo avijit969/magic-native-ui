@@ -49,6 +49,26 @@ bun run build:icons         # regenerate the icon index and shards
 bun run build:preview       # regenerate the docs previews
 ```
 
+## AI skills
+
+`.claude/skills/` holds instructions for AI coding agents working on or with this project. Claude
+Code loads them automatically in this repo; [`npx skills`](https://skills.sh) installs them
+anywhere else.
+
+Building an app with Magic Native UI — the conventions, the CLI, and what goes wrong:
+
+```bash
+npx skills add avijit969/magic-native-ui --skill magic-native-ui-app
+```
+
+Contributing to the library — components, the registry pipeline, icons and the CLI:
+
+```bash
+npx skills add avijit969/magic-native-ui --skill '*'
+```
+
+See [.claude/skills/README.md](.claude/skills/README.md) for what each one covers.
+
 ## Conventions that matter
 
 React Native is not the web, and a few differences shape every component here.
